@@ -9,8 +9,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.alejoyarce.tipcalculator.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <include
+        android:layout_width="match_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:id="@+id/tipContent"
+        layout="@layout/content_tip" />
 </RelativeLayout>
