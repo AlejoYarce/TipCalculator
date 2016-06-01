@@ -2,7 +2,7 @@
     <string name="app_name">Tip Calculator</string>
     <string name="main.button.submit">Calculate</string>
     <string name="main.hint.bill">Total</string>
-    <string name="main.hint.percentage">% tip</string>
+    <string name="main.hint.percentage">Tip %</string>
     <string name="main.button.increase">+</string>
     <string name="main.button.decrease">-</string>
     <string name="main.button.clear">Clear Recents</string>

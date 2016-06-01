@@ -12,7 +12,8 @@
         android:id="@+id/inputBill"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp" />
 
     <Button
         android:layout_width="wrap_content"
@@ -60,10 +61,29 @@
         android:text="@string/main.button.clear"
         android:id="@+id/btnClear"
         android:layout_below="@+id/inputPercentage"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/inputPercentage"
+        android:layout_alignStart="@+id/inputPercentage" />
 
     <View
         android:layout_width="wrap_content"
-        android:layout_height="1dp" />
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:id="@+id/separator"
+        android:layout_below="@+id/btnClear"
+        android:layout_alignStart="@+id/btnClear"
+        android:layout_alignLeft="@+id/btnClear"
+        android:layout_alignEnd="@+id/btnCalculate"
+        android:layout_alignRight="@+id/btnCalculate" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/textTip"
+        android:layout_below="@+id/separator"
+        android:visibility="gone"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
