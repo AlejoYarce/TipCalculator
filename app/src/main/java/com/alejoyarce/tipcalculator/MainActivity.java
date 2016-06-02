@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -20,19 +21,19 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.inputBill)
-    private EditText inputBill;
+    EditText inputBill;
     @Bind(R.id.btnCalculate)
-    private Button btnCalculate;
+    Button btnCalculate;
     @Bind(R.id.inputPercentage)
-    private EditText inputPercentage;
+    EditText inputPercentage;
     @Bind(R.id.btnIncrease)
-    private Button btnIncrease;
+    Button btnIncrease;
     @Bind(R.id.btnDecrease)
-    private Button btnDecrease;
+    Button btnDecrease;
     @Bind(R.id.btnClear)
-    private Button btnClear;
+    Button btnClear;
     @Bind(R.id.textTip)
-    private EditText textTip;
+    TextView textTip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +59,35 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnCalculate)
     public void calculateTip() {
-        hideKeyBoard();
+        String bill = inputBill.getText().toString();
+        if ( !bill.isEmpty() ) {
+            double total = Double.parseDouble(bill);
+            int tipPercentage = (inputPercentage.getText() != null && !inputPercentage.getText().toString().isEmpty())
+                    ? Integer.valueOf(inputPercentage.getText().toString()) : TipCalcApp.DEFAULT_TIP_PERCENTAGE;
+            double tip = total * (tipPercentage / 100d);
 
+            String formattedTip = String.format(getString(R.string.global_message_tip), tip);
+            textTip.setVisibility(View.VISIBLE);
+            textTip.setText(formattedTip);
+
+            if ( tipPercentage == TipCalcApp.DEFAULT_TIP_PERCENTAGE ) {
+                inputPercentage.setText(String.valueOf(TipCalcApp.DEFAULT_TIP_PERCENTAGE));
+            }
+        }
+
+        hideKeyBoard();
+    }
+
+    @OnClick(R.id.btnIncrease)
+    public void increaseTip() {
+        hideKeyBoard();
+        changeTip(TipCalcApp.TIP_STEP_CHANGE);
+    }
+
+    @OnClick(R.id.btnDecrease)
+    public void decreaseTip() {
+        hideKeyBoard();
+        changeTip(-TipCalcApp.TIP_STEP_CHANGE);
     }
 
     private void hideKeyBoard() {
@@ -78,5 +106,21 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(tipCalcApp.getAboutUrl()));
         startActivity(intent);
+    }
+
+    private void changeTip(int tipStepChange) {
+        int tipPercentage = (inputPercentage.getText() != null && !inputPercentage.getText().toString().isEmpty())
+                ? Integer.valueOf(inputPercentage.getText().toString()) : TipCalcApp.DEFAULT_TIP_PERCENTAGE;
+        tipPercentage += tipStepChange;
+
+        if ( tipPercentage == 0 ) {
+            inputPercentage.setText(String.valueOf(0));
+        } else if ( tipPercentage > 100 ) {
+            inputPercentage.setText(String.valueOf(100));
+        } else if ( tipPercentage > 0 ) {
+            inputPercentage.setText(String.valueOf(tipPercentage));
+        }
+
+        calculateTip();
     }
 }
