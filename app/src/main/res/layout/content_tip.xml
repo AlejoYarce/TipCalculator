@@ -72,7 +72,8 @@
         android:layout_alignStart="@+id/btnClear"
         android:layout_alignLeft="@+id/btnClear"
         android:layout_alignEnd="@+id/btnCalculate"
-        android:layout_alignRight="@+id/btnCalculate" />
+        android:layout_alignRight="@+id/btnCalculate"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:layout_width="wrap_content"

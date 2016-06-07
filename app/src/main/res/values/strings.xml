@@ -1,4 +1,5 @@
 <resources>
+    <!-- Tip Content -->
     <string name="app_name">Tip Calculator</string>
     <string name="main.button.submit">Calculate</string>
     <string name="main.hint.bill">Total</string>
@@ -8,6 +9,8 @@
     <string name="main.button.clear">Clear Recents</string>
     <string name="main.notice.clear">History Successfully Cleaned</string>
     <string name="main.menu.action.button">Info</string>
-
     <string name="global.message.tip">Tip %,.1f </string>
+
+    <!-- Fragment -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

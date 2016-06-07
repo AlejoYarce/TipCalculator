@@ -7,11 +7,21 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.alejoyarce.tipcalculator.MainActivity">
+    tools:context=".activities.MainActivity">
 
     <include
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tipContent"
         layout="@layout/content_tip" />
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/fragmentHistoryList"
+        android:layout_below="@+id/tipContent"
+        android:name="com.alejoyarce.tipcalculator.fragments.TipHistoryListFragment"
+        tools:layout="@layout/fragment_tip_history_list"
+        android:layout_marginTop="10dp" />
+
 </RelativeLayout>

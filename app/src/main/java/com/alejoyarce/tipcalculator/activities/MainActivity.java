@@ -1,4 +1,4 @@
-package com.alejoyarce.tipcalculator;
+package com.alejoyarce.tipcalculator.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.alejoyarce.tipcalculator.R;
+import com.alejoyarce.tipcalculator.TipCalcApp;
+import com.alejoyarce.tipcalculator.domain.TipRecord;
+import com.alejoyarce.tipcalculator.fragments.TipHistoryListFragment;
+import com.alejoyarce.tipcalculator.fragments.TipHistoryListFragmentListener;
+
+import java.util.Date;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,25 +29,22 @@ public class MainActivity extends AppCompatActivity {
 
     @Bind(R.id.inputBill)
     EditText inputBill;
-    @Bind(R.id.btnCalculate)
-    Button btnCalculate;
     @Bind(R.id.inputPercentage)
     EditText inputPercentage;
-    @Bind(R.id.btnIncrease)
-    Button btnIncrease;
-    @Bind(R.id.btnDecrease)
-    Button btnDecrease;
-    @Bind(R.id.btnClear)
-    Button btnClear;
     @Bind(R.id.textTip)
     TextView textTip;
+
+    private TipHistoryListFragmentListener tipHistoryListFragmentListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ButterKnife.bind(this);
+
+        TipHistoryListFragment fragment = (TipHistoryListFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentHistoryList);
+        fragment.setRetainInstance(true);
+        tipHistoryListFragmentListener = (TipHistoryListFragment)fragment;
     }
 
     @Override
@@ -64,9 +68,14 @@ public class MainActivity extends AppCompatActivity {
             double total = Double.parseDouble(bill);
             int tipPercentage = (inputPercentage.getText() != null && !inputPercentage.getText().toString().isEmpty())
                     ? Integer.valueOf(inputPercentage.getText().toString()) : TipCalcApp.DEFAULT_TIP_PERCENTAGE;
-            double tip = total * (tipPercentage / 100d);
 
-            String formattedTip = String.format(getString(R.string.global_message_tip), tip);
+            TipRecord tipRecord = new TipRecord();
+            tipRecord.setBill(total);
+            tipRecord.setTipPercentage(tipPercentage);
+            tipRecord.setTimeStamp(new Date());
+            String formattedTip = String.format(getString(R.string.global_message_tip), tipRecord.getTip());
+            tipHistoryListFragmentListener.addRecord(tipRecord);
+
             textTip.setVisibility(View.VISIBLE);
             textTip.setText(formattedTip);
 
@@ -88,6 +97,12 @@ public class MainActivity extends AppCompatActivity {
     public void decreaseTip() {
         hideKeyBoard();
         changeTip(-TipCalcApp.TIP_STEP_CHANGE);
+    }
+
+    @OnClick(R.id.btnClear)
+    public void clearRecords() {
+        hideKeyBoard();
+        tipHistoryListFragmentListener.clearRecords();
     }
 
     private void hideKeyBoard() {
