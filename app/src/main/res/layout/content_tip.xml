@@ -72,17 +72,16 @@
         android:layout_alignStart="@+id/btnClear"
         android:layout_alignLeft="@+id/btnClear"
         android:layout_alignEnd="@+id/btnCalculate"
-        android:layout_alignRight="@+id/btnCalculate"
-        android:layout_marginTop="10dp" />
+        android:layout_alignRight="@+id/btnCalculate" />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/textTip"
         android:layout_below="@+id/separator"
         android:visibility="gone"
+        android:gravity="center"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

@@ -9,8 +9,12 @@
     <string name="main.button.clear">Clear Recents</string>
     <string name="main.notice.clear">History Successfully Cleaned</string>
     <string name="main.menu.action.button">Info</string>
-    <string name="global.message.tip">Tip %,.1f </string>
+    <string name="global.message.tip">Tip: $%,.1f </string>
 
     <!-- Fragment -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Tip Detail -->
+    <string name="tip.detail.message.bill">Total: $%,.1f </string>
+
 </resources>

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.alejoyarce.tipcalculator.R;
 import com.alejoyarce.tipcalculator.domain.TipRecord;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -17,17 +18,26 @@ import butterknife.ButterKnife;
 
 public class TipAdapter extends RecyclerView.Adapter<TipAdapter.ViewHolder> {
 
-    List<TipRecord> dataSet;
-    Context context;
+    private List<TipRecord> dataSet;
+    private Context context;
 
-    public TipAdapter(Context context, List<TipRecord> dataSet) {
+    private OnItemClickListener onItemClickListener;
+
+    public TipAdapter(Context context, List<TipRecord> dataSet, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.dataSet = dataSet;
+        this.onItemClickListener = onItemClickListener;
+    }
+
+    public TipAdapter(Context context, OnItemClickListener onItemClickListener) {
+        this.context = context;
+        this.dataSet = new ArrayList<TipRecord>();
+        this.onItemClickListener = onItemClickListener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_row, null, false);
         return new ViewHolder(view);
     }
 
@@ -35,8 +45,10 @@ public class TipAdapter extends RecyclerView.Adapter<TipAdapter.ViewHolder> {
     public void onBindViewHolder(ViewHolder holder, int position) {
         TipRecord tipRecord = dataSet.get(position);
         String strTip = String.format(context.getString(R.string.global_message_tip), tipRecord.getTip());
+        String dateTip = tipRecord.getDateFormatted();
 
-        holder.txtContent.setText(strTip);
+        holder.txtContent.setText(strTip + " " + dateTip);
+        holder.setOnItemClickListener(tipRecord, onItemClickListener);
     }
 
     @Override
@@ -64,6 +76,15 @@ public class TipAdapter extends RecyclerView.Adapter<TipAdapter.ViewHolder> {
             super(itemView);
 
             ButterKnife.bind(this, itemView);
+        }
+
+        public void setOnItemClickListener(final TipRecord tipRecord, final OnItemClickListener onItemClickListener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onItemClickListener.onItemClick(tipRecord);
+                }
+            });
         }
     }
 }

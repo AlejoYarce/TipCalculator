@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         TipHistoryListFragment fragment = (TipHistoryListFragment)getSupportFragmentManager().findFragmentById(R.id.fragmentHistoryList);
         fragment.setRetainInstance(true);
-        tipHistoryListFragmentListener = (TipHistoryListFragment)fragment;
+        tipHistoryListFragmentListener = (TipHistoryListFragmentListener) fragment;
     }
 
     @Override
@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             tipRecord.setBill(total);
             tipRecord.setTipPercentage(tipPercentage);
             tipRecord.setTimeStamp(new Date());
+
             String formattedTip = String.format(getString(R.string.global_message_tip), tipRecord.getTip());
             tipHistoryListFragmentListener.addRecord(tipRecord);
 

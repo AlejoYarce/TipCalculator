@@ -19,9 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fragmentHistoryList"
-        android:layout_below="@+id/tipContent"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:name="com.alejoyarce.tipcalculator.fragments.TipHistoryListFragment"
         tools:layout="@layout/fragment_tip_history_list"
-        android:layout_marginTop="10dp" />
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tipContent" />
+    <!--android:layout_toEndOf="@+id/tipContent" />-->
 
 </RelativeLayout>
